@@ -7,7 +7,7 @@ import { californiaGeoJson } from './californiaBorder';
 import L from 'leaflet';
 
 const musicIcon = new L.Icon({
-    iconUrl: '/public/music-note.png',
+    iconUrl: './music-note.png',
     iconSize: [30, 30],
     iconAnchor: [15, 30],
     popupAnchor: [0, -30]
@@ -35,18 +35,20 @@ return (
     worldCopyJump={false} // prevents repeated maps
     ref={mapRef}
     >
-   
         <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <GeoJSON data={californiaGeoJson} style={{
-        color: 'blue',
-        weight: 2,
-        fillOpacity: 0
-        }} />
-        {Object.entries(cityMusicData).map(([city, data]) => (
-        <Marker key={city} position={[data.lat, data.lng]}>
+        <GeoJSON 
+        data={californiaGeoJson} 
+        style={{
+            color: 'blue',
+            weight: 2,
+            fillOpacity: 0
+        }} 
+    />
+    {Object.entries(cityMusicData).map(([city, data]) => (
+        <Marker key={city} position={[data.lat, data.lng]} icon= {musicIcon}>
             <Popup>
             <h3>{city}</h3>
             <strong>Top Artists:</strong>
