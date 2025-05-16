@@ -1,35 +1,45 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { cityMusicData } from './cityMusicData';
+import { useEffect, useRef } from 'react';
+import 'leaflet/dist/leaflet.css';
 
 function MapView() {
-  return (
+    const mapRef = useRef();
+
+useEffect(() => {
+    if (mapRef.current) {
+        mapRef.current.invalidateSize();
+    }
+}, []);
+
+return (
     <MapContainer 
     center={[36.7783, -119.4179]} 
     zoom={6} 
     style={{ height: '100vh', width: '100%' }}>
     maxBounds ={[[32.0, -125.0],[42.0, -114.0]]}
     maxBoundsViscosity={1.0}
-      <TileLayer
+        <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {Object.entries(cityMusicData).map(([city, data]) => (
+        />
+        {Object.entries(cityMusicData).map(([city, data]) => (
         <Marker key={city} position={[data.lat, data.lng]}>
-          <Popup>
+            <Popup>
             <h3>{city}</h3>
             <strong>Top Artists:</strong>
             <ul>
-              {data.topArtists.map((artist, i) => <li key={i}>{artist}</li>)}
+                {data.topArtists.map((artist, i) => <li key={i}>{artist}</li>)}
             </ul>
             <strong>Top Songs:</strong>
             <ul>
-              {data.topSongs.map((song, i) => <li key={i}>{song}</li>)}
+                {data.topSongs.map((song, i) => <li key={i}>{song}</li>)}
             </ul>
-          </Popup>
+            </Popup>
         </Marker>
-      ))}
+        ))}
     </MapContainer>
-  );
+    );
 }
 
 export default MapView;
