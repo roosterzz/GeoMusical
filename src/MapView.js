@@ -9,8 +9,9 @@ import L from 'leaflet';
 const musicIcon = new L.Icon({
     iconUrl: './music-note.png',
     iconSize: [30, 30],
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30]
+    iconAnchor: [15, 35],
+    popupAnchor: [0, -30],
+    // className: 'animated-icon'
 });
 
 function MapView() {
