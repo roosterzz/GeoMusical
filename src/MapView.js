@@ -2,6 +2,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { cityMusicData } from './cityMusicData';
 import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
+import { GeoJSON } from 'react-leaflet';
+import { californiaGeoJson } from './californiaBorder';
 
 function MapView() {
     const mapRef = useRef();
@@ -14,15 +16,24 @@ useEffect(() => {
 
 return (
     <MapContainer 
-    center={[36.7783, -119.4179]} 
+    center={[36.7783, -119.4179]} //centered on california
     zoom={6} 
-    style={{ height: '100vh', width: '100%' }}>
-    maxBounds ={[[32.0, -125.0],[42.0, -114.0]]}
+    minZoom={5}
+    maxZoom={10}
+    scrollWheelZoom={true}
+    style={{ height: '100%', width: '100%' }}>
+    maxBounds ={[[32.0, -125.0],[42.0, -114.0]]}  [// California Borders]
     maxBoundsViscosity={1.0}
+    worldCopyJump={false} [// prevents repeated maps]
         <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <GeoJSON data={californiaGeoJson} style={{
+        color: 'blue',
+        weight: 2,
+        fillOpacity: 0
+        }} />
         {Object.entries(cityMusicData).map(([city, data]) => (
         <Marker key={city} position={[data.lat, data.lng]}>
             <Popup>
