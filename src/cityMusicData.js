@@ -29,4 +29,10 @@ export const cityMusicData = {
         topArtists: ["Fashawn", "Patrick Contreras", "Stephen Marley", "Kali Uchis", "J Boog"],
         topSongs: ["The Ecology", "Electric", "No Cigarette Smoking", "After the Storm", "Let's Do It Again"]
     },
+    "San Jose" : {
+        lat: 37.3387,
+        lng: -121.8853,
+        topArtists: [],
+        topSongs: []
+    },
 }
